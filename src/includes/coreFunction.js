@@ -92,12 +92,12 @@ const checkTaskOpenStatus = (dependencyGraph, currentStatues, evaluateTask) => {
     return true;
   }
   for (let element = 0; element < currentTaskDependency.length; element++) {
-    // console.log(currentTaskDependency[element]);
+    console.log(currentTaskDependency[element]);
     if (
       isNullDependency(
         dependencyGraph[currentTaskDependency[element]].dependency
       ) ||
-      currentStatues[element].status == "completed"
+      currentStatues[currentTaskDependency[element]].status == "completed"
     ) {
       continue;
     } else {
