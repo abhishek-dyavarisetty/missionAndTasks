@@ -14,6 +14,29 @@ missionTasksRouter.get("/mission-tasks", (request, response) => {
     if (coreFunction.isNullDependency(initialDependency)) {
       response.status(200).send({ open: true });
     } else {
+      let currentStates = request.body.currentState.tasks;
+      let dependencyGraph = request.body.dependencyGraph.tasks;
+      let dependencyStack = new coreFunction.Stack();
+      let exploredTask = {};
+      // initialDependency.forEach(element => {
+      //   dependencyStack.push(element);
+      // });
+      // console.log(dependencyStack);
+      // let dependencyLoop = coreFunction.dependencyLoop(
+      //   dependencyStack,
+      //   dependencyGraph,
+      //   currentStates,
+      //   evaluateTask
+      // );
+      // console.log(evaluateTask);
+      let dependencyLoop = coreFunction.dependencyLoop(
+        // dependencyStack,
+        dependencyGraph,
+        currenttatues,
+        exploredTask,
+        evaluateTask
+      );
+      console.log(dependencyLoop);
     }
   }
 });
