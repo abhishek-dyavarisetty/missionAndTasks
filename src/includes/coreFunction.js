@@ -200,11 +200,90 @@ Stack.prototype.empty = function() {
 
 // let dependencyLo
 
-// let dependencyLoop = ()
+let ExploreStatus = function() {
+  this.status = {};
+};
+
+let dependencyLoop = (
+  dependencyGraph,
+  currentStatues,
+  exploreStatus,
+  evaluateTask,
+  currentTaskDependency
+) => {
+  let loop = false;
+  if (
+    isNullDependency(currentTaskDependency) ||
+    currentStatues[evaluateTask].status == "completed"
+  ) {
+    exploreStatus[evaluateTask] = 1;
+    return true;
+  }
+  // try {
+  currentTaskDependency.forEach(element => {
+    let currentTaskDependency = dependencyGraph[element].dependency;
+    // console.log(isNullDependency(currentTaskDependency));
+    console.log("(" + element + ", " + currentTaskDependency + ")");
+    if (exploreStatus[element] == undefined) {
+      exploreStatus[element] = 0;
+    }
+    console.log(exploreStatus);
+    loop = dependencyLoop(
+      dependencyGraph,
+      currentStatues,
+      exploreStatus,
+      element,
+      currentTaskDependency
+    );
+  });
+  // } catch (err) {
+  //   loop = false;
+  // }
+  return loop;
+};
+
+const checkTaskOpenStatus = (dependencyGraph, currentStatues, evaluateTask) => {
+  let currentTaskDependency = dependencyGraph[evaluateTask].dependency;
+  let currentTaskStatus = currentStatues[evaluateTask].status;
+  let status = true;
+  if (
+    isNullDependency(currentTaskDependency) ||
+    currentTaskStatus == "completed"
+  ) {
+    return true;
+  }
+  for (let element = 0; element < currentTaskDependency.length; element++) {
+    console.log(currentTaskDependency[element]);
+    if (
+      isNullDependency(
+        dependencyGraph[currentTaskDependency[element]].dependency
+      ) ||
+      currentStatues[element].status == "completed"
+    ) {
+      continue;
+    } else {
+      return false;
+    }
+  }
+  return status;
+  // currentTaskDependency.forEach(element => {
+  //   if (currentStatues[element].status == "completed") {
+  //     // count++;
+  //   }
+  // });
+  // console.log(currentTaskDependency.length);
+  // if (count == currentTaskDependency.length) {
+  //   return true;
+  // } else {
+  //   false;
+  // }
+};
 
 module.exports = {
   isObjectEmpty,
   isNullDependency,
   Stack,
-  dependencyLoop
+  dependencyLoop,
+  ExploreStatus,
+  checkTaskOpenStatus
 };
