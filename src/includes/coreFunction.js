@@ -46,7 +46,7 @@ const isNullDependency = arr => {
 //   }
 // };
 
-let dependencyLoop = (
+const dependencyLoop = (
   dependencyGraph,
   currentStatues,
   exploreStatus,
@@ -67,7 +67,7 @@ let dependencyLoop = (
       let currentTaskDependency = dependencyGraph[element].dependency;
       // console.log(isNullDependency(currentTaskDependency));
       // console.log("-------------");
-      console.log("(" + element + ", " + currentTaskDependency + ")");
+      // console.log("(" + element + ", " + currentTaskDependency + ")");
       if (exploreStatus[element] == 0) {
         // console.log("ho saktha hai ");
       }
@@ -102,7 +102,7 @@ const checkTaskOpenStatus = (dependencyGraph, currentStatues, evaluateTask) => {
     return true;
   }
   for (let element = 0; element < currentTaskDependency.length; element++) {
-    console.log(currentTaskDependency[element]);
+    // console.log(currentTaskDependency[element]);
     if (
       isNullDependency(
         dependencyGraph[currentTaskDependency[element]].dependency

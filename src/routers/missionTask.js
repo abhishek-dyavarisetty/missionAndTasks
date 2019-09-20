@@ -28,7 +28,7 @@ missionTasksRouter.get("/mission-tasks", (request, response) => {
         currentStatues,
         evaluateTask
       );
-      console.log(taskOpenStatus);
+      // console.log(taskOpenStatus);
       if (taskOpenStatus == true) {
         response.status(200).send({ open: true });
       } else {
