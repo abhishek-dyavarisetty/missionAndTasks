@@ -61,23 +61,33 @@ let dependencyLoop = (
     exploreStatus[evaluateTask] = 1;
     return true;
   }
-  currentTaskDependency.forEach(element => {
-    let currentTaskDependency = dependencyGraph[element].dependency;
-    // console.log(isNullDependency(currentTaskDependency));
-    // console.log("(" + element + ", " + currentTaskDependency + ")");
-    if (exploreStatus[element] == undefined) {
-      exploreStatus[element] = 0;
-    }
-    // console.log(exploreStatus);
-    loop = dependencyLoop(
-      dependencyGraph,
-      currentStatues,
-      exploreStatus,
-      element,
-      currentTaskDependency
-    );
-  });
 
+  try {
+    currentTaskDependency.forEach(element => {
+      let currentTaskDependency = dependencyGraph[element].dependency;
+      // console.log(isNullDependency(currentTaskDependency));
+      // console.log("-------------");
+      console.log("(" + element + ", " + currentTaskDependency + ")");
+      if (exploreStatus[element] == 0) {
+        // console.log("ho saktha hai ");
+      }
+      if (exploreStatus[element] == undefined) {
+        exploreStatus[element] = 0;
+      }
+      // console.log(element);
+      // console.log(exploreStatus);
+      loop = dependencyLoop(
+        dependencyGraph,
+        currentStatues,
+        exploreStatus,
+        element,
+        currentTaskDependency
+      );
+    });
+  } catch (err) {
+    return false;
+  }
+  // console.log(loop);
   return loop;
 };
 

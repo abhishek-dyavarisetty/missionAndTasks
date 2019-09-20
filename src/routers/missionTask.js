@@ -34,6 +34,13 @@ missionTasksRouter.get("/mission-tasks", (request, response) => {
       } else {
         response.status(200).send({ open: false });
       }
+    } else {
+      response.status(300).send({
+        error: {
+          status: true,
+          type: "requested body has dependency loop"
+        }
+      });
     }
   }
 });
